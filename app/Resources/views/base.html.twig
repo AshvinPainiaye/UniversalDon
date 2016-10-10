@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}UniversalDon{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.min.css')}}">
+            <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
+            <link rel="stylesheet" href="{{asset('main/css/main.css')}}">
+        {% endblock %}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+
+        {% block header %}
+            <nav class="navbar navbar-fixed-top navbar-default">
+
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/"><i class="fa fa-universal-access" aria-hidden="true"> </i> UniversalDon</a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i> Accueil<span class="sr-only">(current)</span></a></li>
+
+                            {% if is_granted('ROLE_PARTICULIER') %}
+                                <li><a href="/dons/new"><i class="fa fa-edit" aria-hidden="true"></i> Créer un don</a></li>
+                                {% endif %}
+
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <li>
+                                    <a href="/profile" title="Profil"><i class="fa fa-user" aria-hidden="true"></i> {{ app.user.username }}</a>
+                                </li>
+
+                                {% if is_granted('ROLE_PARTICULIER') %}
+                                    <li><a href="/notification" title="Notification"><i class="fa fa-bell" aria-hidden="true"></i></a></li>    
+
+                                {% elseif is_granted('ROLE_ASSOCIATION')%}
+                                    <li><a href="/association/notification" title="Notification"><i class="fa fa-bell" aria-hidden="true"></i></a></li>
+                                        {% endif %}
+
+                                <li class="dropdown">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Paramètres"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/profile/change-password">Modifié mot de passe</a></li>
+                                        <li><a href="/profile/edit">Modifié compte</a></li>
+                                    </ul>
+                                </li>
+                            {% else %}
+
+                                <li>
+                                    <a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Connexion</a>
+                                </li>
+                            {% endif %}
+
+                            <li>
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <a href="{{ path('fos_user_security_logout') }}">Se déconnecter <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                    </a>
+                                {% else %}
+
+                                <li class="dropdown">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-edit" aria-hidden="true"></i> Inscription<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/association/register"><i class="fa fa-group" aria-hidden="true"></i> Association</a></li>
+                                        <li><a href="/particulier/register"><i class="fa fa-user" aria-hidden="true"></i> Particulier</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        {% endblock %}
+
+        {% block body %}
+        {% endblock %}
+
+        {% block fos_user_content %}
+        {% endblock %}
+
+
+        {% block javascripts %}
+            <script src="//code.jquery.com/jquery.min.js"></script>
+            <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+        {% endblock %}
+
+    </body>
+</html>

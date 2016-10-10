@@ -1,0 +1,21 @@
+<section id="showDons" style="margin-top:20px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+
+        {% for don in dons %}
+        <article id="articleDons">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>{{ don.titre }} | {{ don.categorie }}</h3>
+              <p>{{ don.description }}</p>
+              <a class="edit" href="{{ path('dons_edit', { 'id': don.id }) }}"><i class="fa fa-edit" aria-hidden="true"></i> Modifié</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</section>

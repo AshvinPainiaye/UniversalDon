@@ -1,0 +1,76 @@
+<?php
+
+namespace Simplon\ActivitePartageBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+/**
+* @ORM\Entity
+* @ORM\Table(name="users")
+*/
+class Users extends BaseUser
+{
+  /**
+  * @ORM\Id
+  * @ORM\Column(type="integer")
+  * @ORM\GeneratedValue(strategy="AUTO")
+  */
+  protected $id;
+
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="Telephone", type="string", length=255)
+  */
+  private $telephone;
+
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="Ville", type="string", length=255)
+  */
+  private $ville;
+
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="Nom", type="string", length=255, nullable=true)
+  */
+  private $nom;
+
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="Prenom", type="string", length=255, nullable=true)
+  */
+  private $prenom;
+
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="association", type="string", length=255, nullable=true)
+  */
+  private $association;
+
+  
+  /**
+  * @ORM\OneToMany(targetEntity="Dons", mappedBy="user")
+  * @ORM\JoinColumn(name="dons_id", referencedColumnName="id")
+  */
+  private $don;
+
+
+  /**
+  * @ORM\OneToMany(targetEntity="StatutDon", mappedBy="user")
+  */
+  private $statut;
+
+  public function __construct()
+  {
+    parent::__construct();
+    // your own logic
+  }
+
+
+}

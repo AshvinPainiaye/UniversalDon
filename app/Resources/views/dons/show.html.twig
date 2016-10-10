@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section id="showDonsAfterCreate">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+    <!-- <h1>Votre Dons</h1> -->
+
+    <p class="text-center" style="margin-bottom:50px;">
+      Votre don a été ajouté avec succès.
+    </p>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Description</th>
+          <th>Catégorie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ don.titre }}</td>
+          <td>{{ don.description }}</td>
+          <td>{{ don.categorie }}</td>
+    </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</section>
+  <!--  <ul>
+        <li>
+            <a href="{{ path('dons_index') }}">Voir la liste des dons</a>
+        </li>
+        <li>
+            <a href="{{ path('dons_edit', { 'id': don.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul> -->
+{% endblock %}

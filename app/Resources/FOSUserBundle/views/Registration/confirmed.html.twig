@@ -1,0 +1,27 @@
+{# extends "FOSUserBundle::layout.html.twig" #}
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block fos_user_content %}
+
+<section id="registrationConfirmerd">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <p>
+Félicitations {{user.username}}, votre compte {% if is_granted('ROLE_PARTICULIER') %}particulier{% else %}association{% endif %} est maintenant activé.
+        </p>
+        {% if targetUrl %}
+        <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock fos_user_content %}
+
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section id="notification">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    {% if is_granted('ROLE_PARTICULIER') %}
+
+                        {% for don in dons if don.don.user.id == app.user.id %}
+                            
+                                <article id="articleDons">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3>  {{ don.user.username }} | {{ don.don.titre }} </h3>
+
+                                            {% if don.don.imageName is not empty %}
+                                                <img src="{{ asset('images/products/')~ don.don.imageName }}" class="img-responsive">
+                                            {% endif %}
+
+                                            <p>{{ don.don.description }}</p>
+
+                                            <a href="{{ path('don_accepte', { 'id': don.don.id,'associationId':don.user.id, 'statutRemove':don.id }) }}" class="accepter"><i class="fa fa-check" aria-hidden="true"></i> Accepter</a> |
+
+                                            <a href="{{ path('don_refuse', { 'id': don.don.id,'associationId':don.user.id, 'statutRemove':don.id }) }}" class="refuser"><i class="fa fa-times" aria-hidden="true"></i> Refuser</a>
+
+                                        </div>
+                                    </div>
+                                </article>
+
+                        {% endfor %}
+
+
+                    {% elseif is_granted('ROLE_ASSOCIATION') %}
+
+                        {% for don in dons %}
+                            <article id="articleDons">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2>Don Accepter</h2>
+
+                                        <h3>  {{ don.don.titre }} | {{ don.don.categorie }} </h3>
+
+                                        {% if don.don.imageName is not empty %}
+                                            <img src="{{ asset('images/products/')~ don.don.imageName }}" class="img-responsive">
+                                        {% endif %}
+
+                                        <p>  {{ don.don.description }}</p>
+                                        <h2>Coordonnée</h2>
+                                        <h3>{{don.don.user.nom}} {{don.don.user.prenom}} | {{don.don.user.email}}</h3>
+                                        <ul>
+                                            <li>Ville : {{don.don.user.ville}}</li>
+                                            <li>Numéro de téléphone : {{don.don.user.telephone}}</li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

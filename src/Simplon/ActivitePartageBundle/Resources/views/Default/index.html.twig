@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if is_granted("IS_AUTHENTICATED_ANONYMOUSLY") and not  is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <header>
+            <h1>
+                <em><span class="titre"><i class="fa fa-universal-access" aria-hidden="true"></i> <br>UniversalDon</span></em><br>
+                <span class="slogan">Nous sommes tous <em>solidaires</em></span>
+                <br><span class="copyright">&copy; Ashvin PAINIAYE - David ATCHIAMAN - Faïza MOUNIR</span>
+            </h1>
+            <div class="background">
+                <div class="bg-overlay">
+                </div>
+            </div>
+        </header>
+    {% endif %}
+
+    <section id="dons">
+        <section id="showDons">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="text-center">Liste des dons</h1>
+                        {% for don in dons %}
+
+                                <article id="articleDons">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3>{{ don.titre }} | {{ don.categorie }}</h3>
+                                            {% if don.imageName is not empty %}
+                                                <img src="{{ asset('images/products/')~ don.imageName }}" class="img-responsive">
+                                            {% endif %}
+                                            <p>{{ don.description }}</p>
+                                            {% if is_granted('ROLE_ASSOCIATION') %}
+                                                <a class="interesse" href="{{ path('dons_show', { 'id': don.id }) }}"><i class="fa fa-heart" aria-hidden="true"></i> Intéressé</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+{% endblock %}

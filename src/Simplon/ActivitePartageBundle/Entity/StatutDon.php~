@@ -1,0 +1,42 @@
+<?php
+
+namespace Simplon\ActivitePartageBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * StatutDon
+ *
+ * @ORM\Table(name="statut_don")
+ * @ORM\Entity(repositoryClass="Simplon\ActivitePartageBundle\Repository\StatutDonRepository")
+ */
+class StatutDon {
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statut", type="string", length=255, nullable=true)
+     */
+    public $statut;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Dons", inversedBy="statut")
+     */
+    private $don;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Users", inversedBy="statut")
+     */
+    private $user;
+
+   
+}
